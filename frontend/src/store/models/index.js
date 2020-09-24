@@ -1,1 +1,1 @@
-export {count} from './count';
+export {lotto} from './lotto';
