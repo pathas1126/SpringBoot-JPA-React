@@ -51,7 +51,6 @@ const HomeHeader = () => {
 	const createSetOnClick = useCallback(() => {
 		if (!isClicked) setIsClicked(true);
 		const set = createSet();
-		console.log(set);
 		dispatch.lotto.assignSet(set);
 	}, []);
 
