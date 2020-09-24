@@ -5,6 +5,9 @@ import {useDispatch, useSelector} from 'react-redux';
 function App() {
 	const [message, setMessage] = useState('');
 	const count = useSelector((state) => state.count);
+	const countLoading = useSelector(
+		(state) => state.loading.effects.count.incrementAsync,
+	);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -26,6 +29,7 @@ function App() {
 				<hr />
 				{count}
 				<button onClick={increaseCount}>+</button>
+				{countLoading && <h2>Loading...</h2>}
 			</header>
 		</div>
 	);

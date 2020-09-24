@@ -1,8 +1,9 @@
 export const count = {
-	state: 0,
+	state: [0],
 	reducers: {
 		increment(state, payload) {
-			return state + payload;
+			state.push(payload);
+			return state;
 		},
 	},
 	effects: (dispatch) => ({
