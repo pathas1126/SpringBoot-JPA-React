@@ -1,22 +1,12 @@
 /**@jsx jsx */
 import {jsx, css} from '@emotion/core';
 
-const setStyle = (color, size) => {
+const setStyle = (color, size, shape) => {
 	let height = '';
 	let width = '';
+	let radius = '';
 
 	let background = '';
-
-	switch (color) {
-		case 'primary':
-			background = '#008CBA';
-			break;
-		case 'secondary':
-			background = '#f44336';
-			break;
-		default:
-			break;
-	}
 
 	switch (size) {
 		case 'small':
@@ -38,15 +28,41 @@ const setStyle = (color, size) => {
 		default:
 			break;
 	}
+
+	switch (shape) {
+		case 'square':
+			width = height;
+			radius = '0.3rem';
+			break;
+		case 'circle':
+			width = height;
+			radius = '100%';
+			break;
+		default:
+			width = height;
+			break;
+	}
+
+	switch (color) {
+		case 'primary':
+			background = '#008CBA';
+			break;
+		case 'secondary':
+			background = '#f44336';
+			break;
+		default:
+			break;
+	}
+
 	return css`
 		width: ${width};
 		height: ${height};
 		padding: 0.5rem;
 		background: ${background};
+		border-radius: ${radius};
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		border-radius: 0.3rem;
 		box-shadow: 0 0.25rem 0.3rem rgba(59, 43, 91, 0.7);
 		&:hover {
 			cursor: pointer;
@@ -60,10 +76,15 @@ const setStyle = (color, size) => {
 		}
 	`;
 };
-
-const Button = ({color = 'primary', size = 'normal', children, onClick}) => {
+const Button = ({
+	color = 'primary',
+	size = 'normal',
+	shape = 'square',
+	children,
+	onClick,
+}) => {
 	return (
-		<div css={setStyle(color, size)} onClick={onClick}>
+		<div css={setStyle(color, size, shape)} onClick={onClick}>
 			<span>{children}</span>
 		</div>
 	);
