@@ -1,56 +1,57 @@
-export const createNumbers = () => {
-	return new Array(45).fill(1).map((value, index) => {
-		return value + index;
-	});
-};
+export const createNumbers = (length = 45) =>
+	new Array(length).fill(1).map((value, index) => value + index);
 
 export const createRandomIndex = (max) => {
 	return Math.floor(Math.random() * max);
 };
 
-export const shuffleNumbers = (numbers) => {
+export const shuffleNumbers = (numbers, shuffleTime = 50) => {
 	let count = 0;
 	const numbersSize = numbers.length;
-	while (count++ < 100) {
+
+	while (count++ < shuffleTime) {
 		const [spliced] = numbers.splice(createRandomIndex(numbersSize), 1);
 		numbers.splice(createRandomIndex(numbersSize), 0, spliced);
 	}
+
 	return numbers;
 };
 
 export const popNumber = (numbers) => numbers.pop();
 
-export const createLine = () => {
+export const createLine = (lineLength = 7) => {
 	const numbers = createNumbers();
 	const line = [];
-	const lineLength = 7;
 	let count = 0;
 
 	while (count++ < lineLength) {
 		line.push(popNumber(shuffleNumbers(numbers)));
 	}
 
-	if (lineLength === line.length)
+	if (lineLength === line.length) {
 		console.log(`7개의 번호로 하나의 라인을 생성했습니다.`);
-	else throw new Error(']===라인 생성 에러===[');
-
-	return line;
+		return line;
+	} else
+		throw new Error(
+			']===Line Create Error===[ 번호의 개수가 맞지 않습니다.',
+		);
 };
 
-export const createSet = () => {
+export const createSet = (setLength = 5) => {
 	const set = [];
-	const setLength = 5;
 	let count = 0;
 
 	while (count++ < setLength) {
 		set.push(createLine());
 	}
 
-	if (setLength === set.length)
+	if (setLength === set.length) {
 		console.log(`5개의 라인으로 하나의 세트를 생성했습니다`);
-	else throw new Error(']===세트 생성 에러===[');
-
-	return set;
+		return set;
+	} else
+		throw new Error(
+			']===Set Create Error===[ 라인의 개수가 맞지 않습니다.',
+		);
 };
 
 // export const createRandomNumber = () => {
