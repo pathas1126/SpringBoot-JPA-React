@@ -59,11 +59,13 @@ const setStyle = (color, size, shape) => {
 		height: ${height};
 		padding: 0.5rem;
 		background: ${background};
+		border: none;
 		border-radius: ${radius};
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		box-shadow: 0 0.25rem 0.3rem rgba(59, 43, 91, 0.7);
+		outline: none;
 		&:hover {
 			cursor: pointer;
 		}
@@ -84,9 +86,9 @@ const Button = ({
 	onClick,
 }) => {
 	return (
-		<div css={setStyle(color, size, shape)} onClick={onClick}>
+		<button css={setStyle(color, size, shape)} onClick={onClick}>
 			<span>{children}</span>
-		</div>
+		</button>
 	);
 };
 

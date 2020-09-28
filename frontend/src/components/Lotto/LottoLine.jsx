@@ -1,12 +1,11 @@
 /**@jsx jsx */
-import React, {Fragment, useEffect, useRef, useState} from 'react';
-import {jsx, css, keyframes} from '@emotion/core';
+import {Fragment, useEffect, useState} from 'react';
+import {css, jsx, keyframes} from '@emotion/core';
 import {LottoBall} from './';
 import {useSelector} from 'react-redux';
 import {createColorMap} from '../../lib/lotto';
-import {MdRefresh} from 'react-icons/md';
-import Button from '../Button';
-const popup = keyframes`
+
+export const popup = keyframes`
  from {
  	transform: translateY(2rem);
  	opacity: 0;
@@ -37,14 +36,9 @@ const plus = css`
 	margin: 0 0.5rem;
 `;
 
-const refreshWrapper = css`
-	width: 3%;
-	height: 3%;
-`;
-
-const LottoLine = ({line, isWinner}) => {
-	const {winningLine} = useSelector((state) => state.lotto);
+const LottoLine = ({line}) => {
 	const [colorMap, setColorMap] = useState({});
+	const {winningLine} = useSelector((state) => state.lotto);
 
 	useEffect(() => {
 		setColorMap(createColorMap(winningLine));
@@ -68,13 +62,6 @@ const LottoLine = ({line, isWinner}) => {
 					</Fragment>
 				);
 			})}
-			{!isWinner && (
-				<div css={refreshWrapper}>
-					<Button size='small' shape='circle'>
-						<MdRefresh size='small' />
-					</Button>
-				</div>
-			)}
 		</div>
 	);
 };

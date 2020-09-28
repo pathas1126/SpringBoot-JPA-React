@@ -52,7 +52,7 @@ const HomeHeader = () => {
 		if (!isClicked) setIsClicked(true);
 		const set = createSet();
 		dispatch.lotto.assignSet(set);
-	}, []);
+	}, [isClicked, dispatch.lotto]);
 
 	return (
 		<header css={header}>
@@ -67,7 +67,7 @@ const HomeHeader = () => {
 			</article>
 			<article css={winningLineWrapper}>
 				<span>Last Winner: </span>
-				<LottoLine line={winningLine} isWinner={true} />
+				<LottoLine line={winningLine} />
 			</article>
 		</header>
 	);
