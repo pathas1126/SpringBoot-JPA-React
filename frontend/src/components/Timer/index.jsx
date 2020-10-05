@@ -13,7 +13,7 @@ const dateParser = (originDate) => {
     return date;
 }
 
-const Timer = ({}) => {
+const Timer = () => {
     const [now, setNow] = useState(dateParser(Date.now()))
     useEffect(()=>{
         const timer = setInterval(()=> setNow(dateParser(Date.now()))
