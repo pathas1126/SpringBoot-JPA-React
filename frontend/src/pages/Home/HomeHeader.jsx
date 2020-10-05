@@ -5,6 +5,7 @@ import {useCallback, useState} from 'react';
 import {createSet} from '../../lib/lotto';
 import {useDispatch, useSelector} from 'react-redux';
 import {LottoLine} from '../../components/Lotto';
+import Timer from '../../components/Timer'
 
 const header = css`
 	width: 80%;
@@ -43,6 +44,13 @@ const winningLineWrapper = css`
 	}
 `;
 
+const timerWrapper = css`
+ 	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`
+
 const HomeHeader = () => {
 	const [isClicked, setIsClicked] = useState(false);
 	const {winningLine} = useSelector((state) => state.lotto);
@@ -65,9 +73,12 @@ const HomeHeader = () => {
 					{isClicked && <span>Once More?</span>}
 				</Button>
 			</article>
+			<article css={timerWrapper}>
+				<Timer/>
+			</article>
 			<article css={winningLineWrapper}>
 				<span>Last Winner: </span>
-				<LottoLine line={winningLine} />
+				<LottoLine line={winningLine}/>
 			</article>
 		</header>
 	);
