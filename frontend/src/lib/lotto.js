@@ -86,3 +86,5 @@ export const createColorMap = (numbers) => ({
 	[numbers[4]]: '#3B8183',
 	[numbers[5]]: '#e3f79b',
 });
+
+export const parseNumbers = (numberString) => numberString.split(' ');

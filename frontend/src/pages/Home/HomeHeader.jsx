@@ -1,11 +1,11 @@
 /**@jsx jsx */
 import {jsx, css} from '@emotion/core';
 import Button from '../../components/Button';
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {createSet} from '../../lib/lotto';
 import {useDispatch, useSelector} from 'react-redux';
 import {LottoLine} from '../../components/Lotto';
-import Timer from '../../components/Timer'
+import Timer from '../../components/Timer';
 
 const header = css`
 	width: 80%;
@@ -45,21 +45,25 @@ const winningLineWrapper = css`
 `;
 
 const timerWrapper = css`
- 	margin-top: 10px;
+	margin-top: 10px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-`
+`;
 
 const HomeHeader = () => {
 	const [isClicked, setIsClicked] = useState(false);
 	const {winningLine} = useSelector((state) => state.lotto);
 	const dispatch = useDispatch();
 
+	useEffect(() => {
+		dispatch.lotto.setWinningLineAsync();
+	}, []);
+
 	const createSetOnClick = useCallback(() => {
 		if (!isClicked) setIsClicked(true);
 		const set = createSet();
-		dispatch.lotto.assignSet(set);
+		dispatch.lotto.setMyLotto(set);
 	}, [isClicked, dispatch.lotto]);
 
 	return (
@@ -74,11 +78,11 @@ const HomeHeader = () => {
 				</Button>
 			</article>
 			<article css={timerWrapper}>
-				<Timer/>
+				<Timer />
 			</article>
 			<article css={winningLineWrapper}>
 				<span>Last Winner: </span>
-				<LottoLine line={winningLine}/>
+				<LottoLine line={winningLine} />
 			</article>
 		</header>
 	);
