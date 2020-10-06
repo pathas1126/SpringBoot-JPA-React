@@ -6,6 +6,7 @@ export const lotto = {
 	state: {
 		winningLine: [],
 		myLotto: [],
+		error: '',
 	},
 	reducers: {
 		setMyLotto(state, payload) {
@@ -18,6 +19,10 @@ export const lotto = {
 		},
 		setWinningLine(state, winningLine) {
 			state.winningLine = winningLine;
+			return state;
+		},
+		setError(state, errorMessage) {
+			state.error = errorMessage;
 			return state;
 		},
 	},
@@ -37,6 +42,8 @@ export const lotto = {
 					parseNumbers(winningNumbers),
 				);
 			} else {
+				const {message} = response;
+				dispatch.lotto.setError(message);
 				return console.warn(']===WinningLine Data Fetching Error===[');
 			}
 		},
