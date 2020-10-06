@@ -8,7 +8,6 @@ public class LottoDTO {
 
     @Getter
     @AllArgsConstructor
-    @Builder
     public static class WinningGameResponse {
         private final String winningNumbers;
     }
