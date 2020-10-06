@@ -9,6 +9,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class Lotto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

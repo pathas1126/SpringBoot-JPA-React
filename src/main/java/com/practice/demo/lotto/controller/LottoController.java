@@ -1,5 +1,6 @@
 package com.practice.demo.lotto.controller;
 
+import com.practice.demo.lotto.domain.dto.LottoDTO;
 import com.practice.demo.lotto.service.LottoService;
 import com.practice.demo.lotto.domain.Lotto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,12 @@ public class LottoController {
     private final LottoService lottoService;
 
     @Autowired
-    LottoController(LottoService lottoService){
+    public LottoController(LottoService lottoService){
         this.lottoService = lottoService;
     }
 
     @GetMapping("/api/lotto/numbers/winning")
-    public Lotto getWinningNumbers(){
-        return lottoService.popWinningNumbers();
+        public LottoDTO.WinningGameResponse getWinningNumbers(){
+            return lottoService.popWinningNumbers();
     }
 }
