@@ -37,12 +37,12 @@ public class LottoGame extends ArrayList<Integer> {
         return lottoNumbers;
     }
 
-    public Integer popNumber(ArrayList<Integer> lottoNumbers) {
+    private Integer popNumber(ArrayList<Integer> lottoNumbers) {
         int numbersSize = lottoNumbers.size();
         return lottoNumbers.get(createRandomIndex(numbersSize));
     }
 
-    public void setGame(int gameLength) {
+    private void setGame(int gameLength) {
         ArrayList<Integer> game = new ArrayList<>();
 
         int lottoNumbersLength = 45;
@@ -57,14 +57,10 @@ public class LottoGame extends ArrayList<Integer> {
         this.game = game;
     }
 
-    public void setGameFromString(String numbersString) {
+    private void setGameFromString(String numbersString) {
         ArrayList<Integer> numbers = new ArrayList<>();
         ArrayList<String> numberChars = new ArrayList<>(Arrays.asList(numbersString.split(" ")));
         numberChars.forEach((character) -> numbers.add(Integer.parseInt(character)));
         this.game = numbers;
-    }
-
-    public LottoGame get() {
-        return this;
     }
 }

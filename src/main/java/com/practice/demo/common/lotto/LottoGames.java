@@ -14,7 +14,7 @@ public class LottoGames extends ArrayList<LottoGame> {
         setGames(gamesLength);
     }
 
-    public void setGames(int gamesLength) {
+    private void setGames(int gamesLength) {
         ArrayList<ArrayList<Integer>> games = new ArrayList<>();
         int gameLength = 7;
 
