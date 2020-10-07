@@ -28,7 +28,7 @@ const buttonWrapper = css`
 	width: 20%;
 `;
 
-const winningLineWrapper = css`
+const lastWinningNumbersWrapper = css`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -53,17 +53,18 @@ const timerWrapper = css`
 
 const HomeHeader = () => {
 	const [isClicked, setIsClicked] = useState(false);
-	const {winningLine} = useSelector((state) => state.lotto);
+	const {lastWinningGame, error} = useSelector((state) => state.lotto);
+	const loading = useSelector((state) => state.loading.models.lotto);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch.lotto.setWinningLineAsync();
-	}, []);
+		dispatch.lotto.setLastWinningGameAsync();
+	}, [dispatch.lotto]);
 
 	const createSetOnClick = useCallback(() => {
 		if (!isClicked) setIsClicked(true);
 		const set = createSet();
-		dispatch.lotto.setMyLotto(set);
+		dispatch.lotto.setMyGames(set);
 	}, [isClicked, dispatch.lotto]);
 
 	return (
@@ -80,9 +81,13 @@ const HomeHeader = () => {
 			<article css={timerWrapper}>
 				<Timer />
 			</article>
-			<article css={winningLineWrapper}>
+			<article css={lastWinningNumbersWrapper}>
 				<span>Last Winner: </span>
-				<LottoLine line={winningLine} />
+				{lastWinningGame.length > 0 && (
+					<LottoLine line={lastWinningGame} />
+				)}
+				{loading && <span>Loading...</span>}
+				{error && <span>{error}</span>}
 			</article>
 		</header>
 	);

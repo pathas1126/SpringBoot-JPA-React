@@ -33,6 +33,7 @@ const setStyle = (isBonus, color) => {
 };
 
 const LottoBall = ({number, isBonus, color}) => {
+	console.log(number);
 	return (
 		<div css={setStyle(isBonus, color)}>
 			<span>{number}</span>

@@ -1,24 +1,24 @@
-import {createLine, parseNumbers} from '../../lib/lotto';
+import {createLine} from '../../lib/lotto';
 import {request} from '../../lib/request';
 import {methodEnum, statusEnum, WINNING_LINE_URL} from '../../lib/apiConstant';
 
 export const lotto = {
 	state: {
-		winningLine: [],
-		myLotto: [],
+		lastWinningGame: [],
+		myGames: [],
 		error: '',
 	},
 	reducers: {
-		setMyLotto(state, payload) {
-			state.myLotto = payload;
+		setMyGames(state, lottoGames) {
+			state.myGames = lottoGames;
 			return state;
 		},
-		changeLine(state, index) {
-			state.myLotto.splice(index, 1, createLine());
+		changeGame(state, index) {
+			state.myGames.splice(index, 1, createLine());
 			return state;
 		},
-		setWinningLine(state, winningLine) {
-			state.winningLine = winningLine;
+		setLastWinningGame(state, lastWinningGame) {
+			state.lastWinningGame = lastWinningGame;
 			return state;
 		},
 		setError(state, errorMessage) {
@@ -27,7 +27,7 @@ export const lotto = {
 		},
 	},
 	effects: (dispatch) => ({
-		async setWinningLineAsync(payload, rootState) {
+		async setLastWinningGameAsync(payload, rootState) {
 			const response = await request({
 				url: WINNING_LINE_URL,
 				method: methodEnum.GET.value,
@@ -36,15 +36,14 @@ export const lotto = {
 			const {status} = response;
 
 			if (status === statusEnum.SUCCESS.value) {
-				const {winningNumbers} = response.result;
-
-				return dispatch.lotto.setWinningLine(
-					parseNumbers(winningNumbers),
-				);
+				const {winningGame} = response.result;
+				return dispatch.lotto.setLastWinningGame(winningGame);
 			} else {
 				const {message} = response;
 				dispatch.lotto.setError(message);
-				return console.warn(']===WinningLine Data Fetching Error===[');
+				return console.warn(
+					']===LastWinningNumbers Data Fetching Error===[',
+				);
 			}
 		},
 	}),

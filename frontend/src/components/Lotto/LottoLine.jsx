@@ -38,11 +38,11 @@ const plus = css`
 
 const LottoLine = ({line}) => {
 	const [colorMap, setColorMap] = useState({});
-	const {winningLine} = useSelector((state) => state.lotto);
+	const {lastWinningGame} = useSelector((state) => state.lotto);
 
 	useEffect(() => {
-		setColorMap(createColorMap(winningLine));
-	}, [winningLine]);
+		setColorMap(createColorMap(lastWinningGame));
+	}, [lastWinningGame]);
 
 	return (
 		<div css={setLineStyle()}>

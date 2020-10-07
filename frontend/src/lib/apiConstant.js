@@ -1,7 +1,7 @@
 import Enum from 'enum';
 
 // API 베이스
-export const BASE_URL = '/api';
+export const BASE_URL = 'http://localhost:8080/api';
 
 // API 요청 메서드 ENUM
 export const methodEnum = new Enum(
@@ -15,4 +15,4 @@ export const statusEnum = new Enum(
 );
 
 // 로또 관련 API 상수
-export const WINNING_LINE_URL = '/lotto/numbers/winning';
+export const WINNING_LINE_URL = '/lotto/game/winning';

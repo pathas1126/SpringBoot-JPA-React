@@ -35,20 +35,20 @@ const iconStyle = css`
 `;
 
 const HomeBody = () => {
-	const myLotto = useSelector((state) => state.lotto.myLotto);
-	const changeLine = (index) => dispatch.lotto.changeLine(index);
+	const myGames = useSelector((state) => state.lotto.myGames);
+	const changeGame = (index) => dispatch.lotto.changeGame(index);
 	const dispatch = useDispatch();
 
 	return (
 		<div css={homeBody}>
-			{myLotto.length > 0 &&
-				myLotto.map((line, index) => (
+			{myGames.length > 0 &&
+				myGames.map((line, index) => (
 					<div key={index} css={lineWrapper}>
 						<LottoLine line={line} />
 						<div css={refreshWrapper}>
 							<Button
 								shape='circle'
-								onClick={() => changeLine(index)}
+								onClick={() => changeGame(index)}
 							>
 								<MdRefresh css={iconStyle} size={24} />
 							</Button>

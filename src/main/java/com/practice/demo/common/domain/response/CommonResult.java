@@ -1,6 +1,6 @@
-package com.practice.demo.common.domain;
+package com.practice.demo.common.domain.response;
 
-import com.practice.demo.common.domain.enums.StatusType;
+import com.practice.demo.common.domain.response.enums.StatusType;
 import lombok.*;
 
 @Getter
