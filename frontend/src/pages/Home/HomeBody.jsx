@@ -1,10 +1,11 @@
 /**@jsx jsx */
 import {jsx, css} from '@emotion/core';
 import {useDispatch, useSelector} from 'react-redux';
-import {LottoLine} from '../../components/Lotto';
+import {LottoGame} from '../../components/Lotto';
 import Button from '../../components/Button';
 import {MdRefresh} from 'react-icons/md';
-import {popup} from '../../components/Lotto/LottoLine';
+import {popup} from '../../components/Lotto/LottoGame';
+import Loader from '../../components/Loader';
 
 const homeBody = css`
 	margin-top: 4rem;
@@ -36,15 +37,18 @@ const iconStyle = css`
 
 const HomeBody = () => {
 	const myGames = useSelector((state) => state.lotto.myGames);
-	const changeGame = (index) => dispatch.lotto.changeGame(index);
+	const changeGameAsyncLoading = useSelector(
+		(state) => state.loading.effects.lotto.changeGameAsync,
+	);
+	const changeGame = (index) => dispatch.lotto.changeGameAsync(index);
 	const dispatch = useDispatch();
 
 	return (
 		<div css={homeBody}>
 			{myGames.length > 0 &&
-				myGames.map((line, index) => (
+				myGames.map((game, index) => (
 					<div key={index} css={lineWrapper}>
-						<LottoLine line={line} />
+						<LottoGame game={game} />
 						<div css={refreshWrapper}>
 							<Button
 								shape='circle'
@@ -55,6 +59,7 @@ const HomeBody = () => {
 						</div>
 					</div>
 				))}
+			{changeGameAsyncLoading && <Loader />}
 		</div>
 	);
 };

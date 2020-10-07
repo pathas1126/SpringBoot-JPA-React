@@ -1,5 +1,6 @@
 package com.practice.demo.lotto.controller;
 
+import com.practice.demo.common.lotto.LottoGame;
 import com.practice.demo.common.response.CommonResult;
 import com.practice.demo.common.response.enums.StatusType;
 import com.practice.demo.lotto.domain.dto.LottoDTO;
@@ -40,6 +41,14 @@ public class LottoController {
             status = StatusType.FAIL;
             return CommonResult.builder().status(status).message(msg).result(null).build();
         }
+    }
 
+    @GetMapping("/lotto/game/random")
+    public CommonResult<Object> getRandomGame(){
+        int lottoGameLength = 7;
+        LottoGame lottoGame = new LottoGame(lottoGameLength);
+        LottoDTO.RandomGameResponse randomGame = new LottoDTO.RandomGameResponse(lottoGame.getGame());
+        String msg = "랜덤 게임을 가져왔습니다.";
+        return CommonResult.builder().status(StatusType.SUCCESS).message(msg).result(randomGame).build();
     }
 }

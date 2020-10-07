@@ -15,4 +15,5 @@ export const statusEnum = new Enum(
 );
 
 // 로또 관련 API 상수
-export const WINNING_LINE_URL = '/lotto/game/winning';
+export const WINNING_GAME_URL = '/lotto/game/winning';
+export const RANDOM_GAME_URL = '/lotto/game/random';

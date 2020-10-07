@@ -15,4 +15,12 @@ public class LottoDTO {
         }
     }
 
+    @Getter
+    public static class RandomGameResponse {
+        private final ArrayList<Integer> randomGame;
+
+        public RandomGameResponse(ArrayList<Integer> randomGame) {
+            this.randomGame = randomGame;
+        }
+    }
 }

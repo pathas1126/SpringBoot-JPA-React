@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Getter
-public class LottoGame extends ArrayList<Integer>{
+public class LottoGame extends ArrayList<Integer> {
     private ArrayList<Integer> game;
 
     public LottoGame(Integer gameLength) {
         setGame(gameLength);
     }
-    public LottoGame(String lottoGameString){
+
+    public LottoGame(String lottoGameString) {
         setGameFromString(lottoGameString);
     }
 
@@ -20,7 +21,7 @@ public class LottoGame extends ArrayList<Integer>{
         return (int) Math.floor(Math.random() * max);
     }
 
-    private LottoNumbers shuffleNumbers(LottoNumbers lottoNumbers, int shuffleTimes) {
+    private ArrayList<Integer> shuffleNumbers(ArrayList<Integer> lottoNumbers, int shuffleTimes) {
         int count = 0;
         while (count++ < shuffleTimes) {
             int sizeBeforeRemove = lottoNumbers.size();
@@ -36,7 +37,7 @@ public class LottoGame extends ArrayList<Integer>{
         return lottoNumbers;
     }
 
-    public Integer popNumber(LottoNumbers lottoNumbers) {
+    public Integer popNumber(ArrayList<Integer> lottoNumbers) {
         int numbersSize = lottoNumbers.size();
         return lottoNumbers.get(createRandomIndex(numbersSize));
     }
@@ -45,19 +46,21 @@ public class LottoGame extends ArrayList<Integer>{
         ArrayList<Integer> game = new ArrayList<>();
 
         int lottoNumbersLength = 45;
-        LottoNumbers lottoNumbers = new LottoNumbers(lottoNumbersLength);
+        ArrayList<Integer> lottoNumbers = new LottoNumbers(lottoNumbersLength).getLottoNumbers();
+
+        int shuffleTimes = 30;
 
         int count = 0;
         while (count++ < gameLength) {
-            this.game.add(popNumber(shuffleNumbers(lottoNumbers, 30)));
+            game.add(popNumber(shuffleNumbers(lottoNumbers, shuffleTimes)));
         }
-
+        this.game = game;
     }
 
-    public void setGameFromString(String numbersString){
+    public void setGameFromString(String numbersString) {
         ArrayList<Integer> numbers = new ArrayList<>();
         ArrayList<String> numberChars = new ArrayList<>(Arrays.asList(numbersString.split(" ")));
         numberChars.forEach((character) -> numbers.add(Integer.parseInt(character)));
-       this.game = numbers;
+        this.game = numbers;
     }
 }

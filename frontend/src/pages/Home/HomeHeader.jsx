@@ -4,7 +4,7 @@ import Button from '../../components/Button';
 import {useCallback, useEffect, useState} from 'react';
 import {createSet} from '../../lib/lotto';
 import {useDispatch, useSelector} from 'react-redux';
-import {LottoLine} from '../../components/Lotto';
+import {LottoGame} from '../../components/Lotto';
 import Timer from '../../components/Timer';
 
 const header = css`
@@ -53,8 +53,13 @@ const timerWrapper = css`
 
 const HomeHeader = () => {
 	const [isClicked, setIsClicked] = useState(false);
-	const {lastWinningGame, error} = useSelector((state) => state.lotto);
-	const loading = useSelector((state) => state.loading.models.lotto);
+	const {lastWinningGame, lastWinningGameAsyncError} = useSelector(
+		(state) => state.lotto,
+	);
+	const lastWinningGameAsyncLoading = useSelector(
+		(state) => state.loading.effects.lotto.setLastWinningGameAsync,
+	);
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -84,10 +89,12 @@ const HomeHeader = () => {
 			<article css={lastWinningNumbersWrapper}>
 				<span>Last Winner: </span>
 				{lastWinningGame.length > 0 && (
-					<LottoLine line={lastWinningGame} />
+					<LottoGame game={lastWinningGame} />
 				)}
-				{loading && <span>Loading...</span>}
-				{error && <span>{error}</span>}
+				{lastWinningGameAsyncLoading && <span>Loading...</span>}
+				{lastWinningGameAsyncError && (
+					<span>{lastWinningGameAsyncError}</span>
+				)}
 			</article>
 		</header>
 	);

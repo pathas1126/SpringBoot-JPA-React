@@ -36,7 +36,7 @@ const plus = css`
 	margin: 0 0.5rem;
 `;
 
-const LottoLine = ({line}) => {
+const LottoGame = ({game}) => {
 	const [colorMap, setColorMap] = useState({});
 	const {lastWinningGame} = useSelector((state) => state.lotto);
 
@@ -46,24 +46,25 @@ const LottoLine = ({line}) => {
 
 	return (
 		<div css={setLineStyle()}>
-			{line.map((number, index) => {
-				if (index < 6)
+			{game.length > 0 &&
+				game.map((number, index) => {
+					if (index < 6)
+						return (
+							<LottoBall
+								number={number}
+								key={index}
+								color={colorMap[String(number)]}
+							/>
+						);
 					return (
-						<LottoBall
-							number={number}
-							key={number}
-							color={colorMap[String(number)]}
-						/>
+						<Fragment key={index}>
+							<span css={plus}>+</span>
+							<LottoBall number={number} isBonus={true} />
+						</Fragment>
 					);
-				return (
-					<Fragment key={number}>
-						<span css={plus}>+</span>
-						<LottoBall number={number} isBonus={true} />
-					</Fragment>
-				);
-			})}
+				})}
 		</div>
 	);
 };
 
-export default LottoLine;
+export default LottoGame;
