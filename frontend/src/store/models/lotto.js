@@ -1,6 +1,7 @@
 import {request} from '../../lib/request';
 import {
 	methodEnum,
+	RANDOM_GAMES_URL,
 	RANDOM_GAME_URL,
 	statusEnum,
 	WINNING_GAME_URL,
@@ -9,17 +10,18 @@ import {
 export const lotto = {
 	state: {
 		lastWinningGame: [],
+		lottoGames: [],
 		lastWinningGameAsyncError: '',
+		lottoGamesAsyncError: '',
 		changeGameAsyncError: '',
-		myGames: [],
 	},
 	reducers: {
-		setMyGames(state, lottoGames) {
-			state.myGames = lottoGames;
+		setLottoGames(state, lottoGames) {
+			state.lottoGames = lottoGames;
 			return state;
 		},
 		changeGame(state, {newGame, index}) {
-			state.myGames.splice(index, 1, newGame);
+			state.lottoGames.splice(index, 1, newGame);
 			return state;
 		},
 		setLastWinningGame(state, lastWinningGame) {
@@ -32,6 +34,10 @@ export const lotto = {
 		},
 		setChangeGameAsyncError(state, errorMessage) {
 			state.changeGameAsyncError = errorMessage;
+			return state;
+		},
+		setLottoGamesAsyncError(state, errorMessage) {
+			state.lottoGamesAsyncError = errorMessage;
 			return state;
 		},
 	},
@@ -69,6 +75,23 @@ export const lotto = {
 			} else {
 				const {message} = response;
 				dispatch.lotto.setChangeGameAsyncError(message);
+				return console.warn(']===RandomGame Data Fetching Error===[');
+			}
+		},
+		async setLottoGamesAsync(payload, rootState) {
+			const response = await request({
+				url: RANDOM_GAMES_URL,
+				method: methodEnum.GET.value,
+			});
+
+			const {status} = response;
+
+			if (status === statusEnum.SUCCESS.value) {
+				const {randomGames} = response.result;
+				return dispatch.lotto.setLottoGames(randomGames);
+			} else {
+				const {message} = response;
+				dispatch.lotto.setLottoGamesAsyncError(message);
 				return console.warn(']===RandomGame Data Fetching Error===[');
 			}
 		},

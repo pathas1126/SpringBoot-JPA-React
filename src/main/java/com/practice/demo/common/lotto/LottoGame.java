@@ -63,4 +63,8 @@ public class LottoGame extends ArrayList<Integer> {
         numberChars.forEach((character) -> numbers.add(Integer.parseInt(character)));
         this.game = numbers;
     }
+
+    public LottoGame get() {
+        return this;
+    }
 }

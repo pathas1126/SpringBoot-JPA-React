@@ -1,6 +1,7 @@
 package com.practice.demo.lotto.controller;
 
 import com.practice.demo.common.lotto.LottoGame;
+import com.practice.demo.common.lotto.LottoGames;
 import com.practice.demo.common.response.CommonResult;
 import com.practice.demo.common.response.enums.StatusType;
 import com.practice.demo.lotto.domain.dto.LottoDTO;
@@ -50,5 +51,14 @@ public class LottoController {
         LottoDTO.RandomGameResponse randomGame = new LottoDTO.RandomGameResponse(lottoGame.getGame());
         String msg = "랜덤 게임을 가져왔습니다.";
         return CommonResult.builder().status(StatusType.SUCCESS).message(msg).result(randomGame).build();
+    }
+
+    @GetMapping("/lotto/games/random")
+    public CommonResult<Object> getRandomGameSet(){
+        int lottoGameSetLength = 5;
+        LottoGames lottoGames = new LottoGames(lottoGameSetLength);
+        LottoDTO.RandomGamesResponse randomGameSet = new LottoDTO.RandomGamesResponse(lottoGames.getGames());
+        String msg = "랜덤 게임 세트를 가져왔습니다.";
+        return CommonResult.builder().status(StatusType.SUCCESS).message(msg).result(randomGameSet).build();
     }
 }

@@ -36,17 +36,26 @@ const iconStyle = css`
 `;
 
 const HomeBody = () => {
-	const myGames = useSelector((state) => state.lotto.myGames);
+	const {
+		lottoGames,
+		changeGameAsyncError,
+		lottoGamesAsyncError,
+	} = useSelector((state) => state.lotto);
+	const dispatch = useDispatch();
+
 	const changeGameAsyncLoading = useSelector(
 		(state) => state.loading.effects.lotto.changeGameAsync,
 	);
+	const lottoGamesAsyncLoading = useSelector(
+		(state) => state.loading.effects.lotto.setLottoGamesAsync,
+	);
+
 	const changeGame = (index) => dispatch.lotto.changeGameAsync(index);
-	const dispatch = useDispatch();
 
 	return (
 		<div css={homeBody}>
-			{myGames.length > 0 &&
-				myGames.map((game, index) => (
+			{lottoGames.length > 0 &&
+				lottoGames.map((game, index) => (
 					<div key={index} css={lineWrapper}>
 						<LottoGame game={game} />
 						<div css={refreshWrapper}>
@@ -59,7 +68,9 @@ const HomeBody = () => {
 						</div>
 					</div>
 				))}
-			{changeGameAsyncLoading && <Loader />}
+			{(changeGameAsyncLoading || lottoGamesAsyncLoading) && <Loader />}
+			{changeGameAsyncError && <span>{changeGameAsyncError}</span>}
+			{lottoGamesAsyncError && <span>{lottoGamesAsyncError}</span>}
 		</div>
 	);
 };

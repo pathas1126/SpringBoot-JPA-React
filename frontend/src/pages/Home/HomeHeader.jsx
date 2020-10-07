@@ -1,8 +1,7 @@
 /**@jsx jsx */
-import {jsx, css} from '@emotion/core';
+import {css, jsx} from '@emotion/core';
 import Button from '../../components/Button';
 import {useCallback, useEffect, useState} from 'react';
-import {createSet} from '../../lib/lotto';
 import {useDispatch, useSelector} from 'react-redux';
 import {LottoGame} from '../../components/Lotto';
 import Timer from '../../components/Timer';
@@ -68,8 +67,7 @@ const HomeHeader = () => {
 
 	const createSetOnClick = useCallback(() => {
 		if (!isClicked) setIsClicked(true);
-		const set = createSet();
-		dispatch.lotto.setMyGames(set);
+		dispatch.lotto.setLottoGamesAsync();
 	}, [isClicked, dispatch.lotto]);
 
 	return (
