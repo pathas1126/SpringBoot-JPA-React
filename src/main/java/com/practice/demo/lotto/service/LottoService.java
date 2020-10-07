@@ -1,6 +1,6 @@
 package com.practice.demo.lotto.service;
 
-import com.practice.demo.common.domain.lotto.LottoGame;
+import com.practice.demo.common.lotto.LottoGame;
 import com.practice.demo.lotto.domain.dto.LottoDTO;
 import com.practice.demo.lotto.repository.LottoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

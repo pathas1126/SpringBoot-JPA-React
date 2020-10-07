@@ -1,4 +1,4 @@
-package com.practice.demo.common.domain.lotto;
+package com.practice.demo.common.lotto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

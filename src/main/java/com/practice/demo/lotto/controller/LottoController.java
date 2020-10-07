@@ -1,7 +1,7 @@
 package com.practice.demo.lotto.controller;
 
-import com.practice.demo.common.domain.response.CommonResult;
-import com.practice.demo.common.domain.response.enums.StatusType;
+import com.practice.demo.common.response.CommonResult;
+import com.practice.demo.common.response.enums.StatusType;
 import com.practice.demo.lotto.domain.dto.LottoDTO;
 import com.practice.demo.lotto.service.LottoService;
 import org.springframework.beans.factory.annotation.Autowired;
