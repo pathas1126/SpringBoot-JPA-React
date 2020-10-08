@@ -11,11 +11,24 @@ const loaderWrapper = css`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background: rgba(0, 0, 0, 0.2);
+`;
+
+const loaderFontWrapper = css`
+	width: 10rem;
+	height: 10rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #fefefe;
+	border-radius: 100%;
+	box-shadow: 0 0.25rem 0.3rem rgba(59, 43, 91, 0.7);
 `;
 
 const loaderFont = css`
-	font-size: 1.7rem;
-	color: #fff;
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #9a0a9a;
 `;
 
 const Loader = () => {
@@ -35,7 +48,9 @@ const Loader = () => {
 
 	return (
 		<article css={loaderWrapper}>
-			<span css={loaderFont}>Loading{dots}</span>
+			<div css={loaderFontWrapper}>
+				<span css={loaderFont}>Loading{dots}</span>
+			</div>
 		</article>
 	);
 };

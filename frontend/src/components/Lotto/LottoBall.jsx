@@ -2,25 +2,24 @@
 import {jsx, css} from '@emotion/core';
 
 const setStyle = (isBonus, color) => {
-	let topGradient = '#fff';
-	let bottomGradient = '#dedede';
+	let ballColor = '#fff';
 
 	if (color) {
-		bottomGradient = color;
+		ballColor = color;
 	}
 
 	if (isBonus) {
-		bottomGradient = '#fed348';
+		ballColor = '#fed348';
 	}
 	return css`
 		width: 2rem;
 		height: 2rem;
 		border-radius: 100%;
-		background: linear-gradient(${topGradient}, ${bottomGradient});
+		background: ${ballColor};
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		box-shadow: 0 0.25rem 0.3rem rgba(59, 43, 91, 0.7);
+		box-shadow: 0.1rem 0.13rem 0.13rem rgba(59, 43, 91, 0.7);
 		span {
 			color: #00334e;
 			font-size: 1rem;

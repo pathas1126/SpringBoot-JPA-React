@@ -15,7 +15,7 @@ public class LottoGames extends ArrayList<LottoGame> {
 
   public void setGames(int gamesLength) {
     ArrayList<ArrayList<Integer>> games = new ArrayList<>();
-    int gameLength = 7;
+    int gameLength = 6;
 
     int count = 0;
     while (count++ < gamesLength) {

@@ -13,6 +13,8 @@ const homeBody = css`
 
 const lineWrapper = css`
 	display: flex;
+	justify-content: space-around;
+	align-items: center;
 	& + & {
 		margin-top: 10px;
 	}

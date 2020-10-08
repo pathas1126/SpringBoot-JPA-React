@@ -1,9 +1,7 @@
 /**@jsx jsx */
-import {Fragment, useEffect, useState} from 'react';
+import {Fragment} from 'react';
 import {css, jsx, keyframes} from '@emotion/core';
 import {LottoBall} from './';
-import {useSelector} from 'react-redux';
-import {createColorMap} from '../../lib/lotto';
 
 export const popup = keyframes`
  from {
@@ -18,6 +16,9 @@ export const popup = keyframes`
 
 const setLineStyle = () => css`
 	width: 100%;
+	background: #fefefe;
+	padding: 0.4rem 0.6rem;
+	border-radius: 1rem;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -36,24 +37,42 @@ const plus = css`
 	margin: 0 0.5rem;
 `;
 
+const defineBallColor = (number) => {
+	let color = '';
+	switch (true) {
+		case number < 10:
+			color = '#E0F39E';
+			break;
+		case number < 20:
+			color = '#FA7E6E';
+			break;
+		case number < 30:
+			color = '#90529E';
+			break;
+		case number < 40:
+			color = '#6E8394';
+			break;
+		case number <= 45:
+			color = '#B8E63A';
+			break;
+		default:
+			color = '#E2DBE3';
+	}
+	return color;
+};
+
 const LottoGame = ({game}) => {
-	const [colorMap, setColorMap] = useState({});
-	const {lastWinningGame} = useSelector((state) => state.lotto);
-
-	useEffect(() => {
-		setColorMap(createColorMap(lastWinningGame));
-	}, [lastWinningGame]);
-
 	return (
 		<div css={setLineStyle()}>
 			{game.length > 0 &&
 				game.map((number, index) => {
-					if (index < 6)
+					const userLottoGameLength = 6;
+					if (index < userLottoGameLength)
 						return (
 							<LottoBall
 								number={number}
 								key={index}
-								color={colorMap[String(number)]}
+								color={defineBallColor([String(number)])}
 							/>
 						);
 					return (

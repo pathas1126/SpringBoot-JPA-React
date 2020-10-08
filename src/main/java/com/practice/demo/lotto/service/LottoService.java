@@ -36,7 +36,7 @@ public class LottoService {
   }
 
   public LottoDTO.RandomGameResponse createRandomGame() {
-    int lottoGameLength = 7;
+    int lottoGameLength = 6;
     LottoGame lottoGame = new LottoGame(lottoGameLength);
     return new LottoDTO.RandomGameResponse(lottoGame.getGame());
   }
