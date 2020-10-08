@@ -28,7 +28,7 @@ const setLineStyle = () => css`
 	}
 `;
 
-const plus = css`
+export const plus = css`
 	display: inline-block;
 	padding-bottom: 0.4rem;
 	line-height: 1rem;

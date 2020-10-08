@@ -84,9 +84,14 @@ const Button = ({
 	shape = 'square',
 	children,
 	onClick,
+	type = 'button',
 }) => {
 	return (
-		<button css={setStyle(color, size, shape)} onClick={onClick}>
+		<button
+			css={setStyle(color, size, shape)}
+			onClick={onClick}
+			type={type}
+		>
 			<span>{children}</span>
 		</button>
 	);
