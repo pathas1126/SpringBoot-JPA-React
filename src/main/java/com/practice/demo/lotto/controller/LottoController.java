@@ -1,64 +1,34 @@
 package com.practice.demo.lotto.controller;
 
-import com.practice.demo.common.lotto.LottoGame;
-import com.practice.demo.common.lotto.LottoGames;
 import com.practice.demo.common.response.CommonResult;
-import com.practice.demo.common.response.enums.StatusType;
-import com.practice.demo.lotto.domain.dto.LottoDTO;
+import com.practice.demo.common.response.ResponseService;
 import com.practice.demo.lotto.service.LottoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class LottoController {
 
+  private final LottoService lottoService;
 
-    private final LottoService lottoService;
+  @GetMapping("/lotto/game/winning")
+  @ResponseBody
+  public CommonResult<Object> getWinningGame() {
+    return ResponseService.passToClient(lottoService.findWinningGame());
+  }
 
-    @Autowired
-    public LottoController(LottoService lottoService) {
-        this.lottoService = lottoService;
-    }
+  @GetMapping("/lotto/game/random")
+  public CommonResult<Object> getRandomGame() {
+    return ResponseService.passToClient(lottoService.createRandomGame());
+  }
 
-    @GetMapping("/lotto/game/winning")
-    @ResponseBody
-    public CommonResult<Object> getWinningGame() {
-        Optional<LottoDTO.WinningGameResponse> winningGame = Optional.ofNullable(lottoService.findWinningGame());
-        String msg;
-        StatusType status;
-
-        if (winningGame.isPresent()) {
-            msg = "지난 주 로또 우승 번호를 성공적으로 조회했습니다.";
-            status = StatusType.SUCCESS;
-            return CommonResult.builder().status(status).message(msg).result(winningGame).build();
-        } else {
-            msg = "데이터 조회에 실패했습니다.";
-            status = StatusType.FAIL;
-            return CommonResult.builder().status(status).message(msg).result(null).build();
-        }
-    }
-
-    @GetMapping("/lotto/game/random")
-    public CommonResult<Object> getRandomGame(){
-        int lottoGameLength = 7;
-        LottoGame lottoGame = new LottoGame(lottoGameLength);
-        LottoDTO.RandomGameResponse randomGame = new LottoDTO.RandomGameResponse(lottoGame.getGame());
-        String msg = "랜덤 게임을 가져왔습니다.";
-        return CommonResult.builder().status(StatusType.SUCCESS).message(msg).result(randomGame).build();
-    }
-
-    @GetMapping("/lotto/games/random")
-    public CommonResult<Object> getRandomGameSet(){
-        int lottoGameSetLength = 5;
-        LottoGames lottoGames = new LottoGames(lottoGameSetLength);
-        LottoDTO.RandomGamesResponse randomGameSet = new LottoDTO.RandomGamesResponse(lottoGames.getGames());
-        String msg = "랜덤 게임 세트를 가져왔습니다.";
-        return CommonResult.builder().status(StatusType.SUCCESS).message(msg).result(randomGameSet).build();
-    }
+  @GetMapping("/lotto/games/random")
+  public CommonResult<Object> getRandomGameSet() {
+    return ResponseService.passToClient(lottoService.createRandomGames());
+  }
 }

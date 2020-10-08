@@ -4,18 +4,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 
 @Getter
 @NoArgsConstructor
 @Entity
 public class Lotto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "LOTTO_ID")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "LOTTO_ID")
+  private Long id;
 
-    private String winningNumbers;
-
+  private String winningNumbers;
 }
