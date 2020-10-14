@@ -88,3 +88,38 @@ export const createColorMap = (numbers) => ({
 });
 
 export const parseNumbers = (numberString) => numberString.split(' ');
+
+const FIRST_PLACE = '1st';
+const SECOND_PLACE = '2nd';
+const THIRD_PLACE = '3rd';
+const FOURTH_PLACE = '4th';
+const FIFTH_PLACE = '5th';
+const LAST_PLACE = '😭';
+
+export const lottoPlaceColorMap = {
+	[FIRST_PLACE]: '#f6f578',
+	[SECOND_PLACE]: '#28df99',
+	[THIRD_PLACE]: '#ffb0b0',
+	[FOURTH_PLACE]: '#900c3f',
+	[FIFTH_PLACE]: '#206a5d',
+	[LAST_PLACE]: '#eff3c6',
+};
+
+export const determineWinner = ({game, currentTargetGame}) => {
+	const copiedCurrentTargetGame = currentTargetGame.map((number) => number);
+	const [bonus, ...numbersExcludeBonus] = copiedCurrentTargetGame.reverse();
+
+	const sameElementsCount = game.filter((number) =>
+		numbersExcludeBonus.includes(number),
+	).length;
+
+	const bonusCount = game.includes(bonus) ? 1 : 0;
+
+	if (sameElementsCount === 6) return FIRST_PLACE;
+	if (sameElementsCount === 5 && bonusCount === 1) return SECOND_PLACE;
+	if (sameElementsCount === 5) return THIRD_PLACE;
+	if (sameElementsCount === 4) return FOURTH_PLACE;
+	if (sameElementsCount === 3) return FIFTH_PLACE;
+
+	return LAST_PLACE;
+};

@@ -1,6 +1,6 @@
 /**@jsx jsx */
 import {css, jsx} from '@emotion/core';
-import {RandomLotto} from '../../components/Lotto';
+import {LottoRandomGames} from '../../components/Lotto';
 
 const homeBody = css`
 	margin-top: 0;
@@ -12,7 +12,7 @@ const homeBody = css`
 const HomeBody = () => {
 	return (
 		<div css={homeBody}>
-			<RandomLotto />
+			<LottoRandomGames />
 		</div>
 	);
 };

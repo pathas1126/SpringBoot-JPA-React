@@ -7,6 +7,7 @@ import {MdRefresh} from 'react-icons/md';
 import {popup} from '../../components/Lotto/LottoGame';
 import Loader from '../../components/Loader';
 import {useCallback, useState} from 'react';
+import LottoMatcher from './LottoMatcher';
 
 const homeBody = css`
 	margin-top: 3rem;
@@ -14,16 +15,18 @@ const homeBody = css`
 
 const lineWrapper = css`
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 	& + & {
 		margin-top: 10px;
 	}
 `;
 
+const lottoMatcherWrapper = css`
+	margin-right: 5px;
+`;
+
 const refreshWrapper = css`
-	width: 100%;
-	height: 100%;
 	margin-left: 5px;
 	animation: ${popup} 0.7s ease;
 	position: relative;
@@ -44,12 +47,14 @@ const buttonWrapper = css`
 	min-width: 10rem;
 `;
 
-const RandomLotto = () => {
+const LottoRandomGames = () => {
 	const {
 		lottoGames,
 		changeGameAsyncError,
 		lottoGamesAsyncError,
 	} = useSelector((state) => state.lotto);
+	const {currentTargetGame} = useSelector((state) => state.userLotto);
+
 	const [isClicked, setIsClicked] = useState(false);
 
 	const dispatch = useDispatch();
@@ -79,6 +84,11 @@ const RandomLotto = () => {
 			{lottoGames.length > 0 &&
 				lottoGames.map((game, index) => (
 					<div key={index} css={lineWrapper}>
+						{currentTargetGame && (
+							<div css={lottoMatcherWrapper}>
+								<LottoMatcher game={game} />
+							</div>
+						)}
 						<LottoGame game={game} />
 						<div css={refreshWrapper}>
 							<Button
@@ -97,4 +107,4 @@ const RandomLotto = () => {
 	);
 };
 
-export default RandomLotto;
+export default LottoRandomGames;

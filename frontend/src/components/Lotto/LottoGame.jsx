@@ -1,5 +1,5 @@
 /**@jsx jsx */
-import {Fragment} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import {css, jsx, keyframes} from '@emotion/core';
 import {LottoBall} from './';
 
@@ -61,7 +61,28 @@ const defineBallColor = (number) => {
 	return color;
 };
 
+const errorStyle = css`
+	width: 100%;
+	background: #fefefe;
+	padding: 0.4rem 0.6rem;
+	border-radius: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: red;
+`;
+
 const LottoGame = ({game}) => {
+	const [areUnique, setAreUnique] = useState(true);
+
+	useEffect(() => {
+		const uniqueGame = new Set(game);
+		const uniqueGameSize = uniqueGame.size;
+		if (uniqueGameSize < 6) setAreUnique(false);
+	}, [game]);
+
+	if (!areUnique) return <div css={errorStyle}>Critical Error Occurred</div>;
+
 	return (
 		<div css={setLineStyle()}>
 			{game.length > 0 &&
