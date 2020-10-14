@@ -5,21 +5,21 @@ import lombok.Getter;
 import java.util.ArrayList;
 
 @Getter
-public class LottoGames extends ArrayList<LottoGame> {
+public class LottoGames {
 
-  private ArrayList<ArrayList<Integer>> games;
+  private ArrayList<LottoGame> games;
 
   public LottoGames(int gamesLength) {
     setGames(gamesLength);
   }
 
   public void setGames(int gamesLength) {
-    ArrayList<ArrayList<Integer>> games = new ArrayList<>();
+    ArrayList<LottoGame> games = new ArrayList<>();
     int gameLength = 6;
 
     int count = 0;
     while (count++ < gamesLength) {
-      games.add(new LottoGame(gameLength).getGame());
+      games.add(new LottoGame(gameLength));
     }
 
     this.games = games;

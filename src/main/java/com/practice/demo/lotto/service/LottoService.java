@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -42,8 +43,13 @@ public class LottoService {
   }
 
   public LottoDTO.RandomGamesResponse createRandomGames() {
-    int lottoGameSetLength = 5;
-    LottoGames lottoGames = new LottoGames(lottoGameSetLength);
-    return new LottoDTO.RandomGamesResponse(lottoGames.getGames());
+    int lottoGamesLength = 5;
+
+    ArrayList<LottoGame> lottoGames = new LottoGames(lottoGamesLength).getGames();
+    ArrayList<ArrayList<Integer>> lottoGamesForDto = new ArrayList<>();
+
+    lottoGames.forEach((lottoGame) -> lottoGamesForDto.add(lottoGame.getGame()));
+
+    return new LottoDTO.RandomGamesResponse(lottoGamesForDto);
   }
 }

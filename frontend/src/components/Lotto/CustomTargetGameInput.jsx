@@ -49,20 +49,23 @@ const CustomTargetGameInput = () => {
 		register,
 		reset,
 		clearErrors,
+		setValue,
 		setError,
 		errors,
 	} = useForm();
 	const onSubmit = (data) => {
 		console.log(data);
-		reset();
+		if (!errors.number) reset();
 	};
 	const onChange = (event) => {
 		const {value, name} = event.target;
 		const regexPattern = /^[1-9]{1,2}$/g;
-		const isPass = regexPattern.test(value);
-		console.log(isPass, name, value);
-		if (!isPass) setError('number', {message: `Check ${name} Number`});
-		if (isPass) clearErrors();
+		const isPassed = regexPattern.test(value) && value.length <= 2;
+		console.log(isPassed, name, value);
+		if (!isPassed) {
+			return setError('number', {message: `Check ${name} Number`});
+		}
+		clearErrors();
 	};
 	return (
 		<section css={customTargetGameInputStyle}>
@@ -87,6 +90,7 @@ const CustomTargetGameInput = () => {
 								ref={register({
 									required: true,
 								})}
+								onChange={onChange}
 							/>
 							<div css={enterWrapper}>
 								<Button color='secondary' type='submit'>

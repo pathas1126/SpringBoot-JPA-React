@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 @Getter
-public class LottoNumbers extends ArrayList<Integer> {
+public class LottoNumbers {
   private final ArrayList<Integer> lottoNumbers;
 
   public LottoNumbers(int lottoNumbersLength) {
