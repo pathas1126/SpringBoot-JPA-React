@@ -29,11 +29,17 @@ public class LottoService {
                 .orElseThrow(() -> new EntityNotFoundException("당첨 번호를 가져오지 못했습니다.")));
 
     if (lotto.isPresent()) {
-      LottoGame lottoGame = new LottoGame(lotto.get().getWinningNumbers());
+      LottoGame lottoGame = new LottoGame(lotto.get().getNumbers());
       return new LottoDTO.WinningGameResponse(lottoGame.getGame());
     }
 
     return null;
+  }
+
+  public LottoDTO.CustomGameResponse saveCustomGame(LottoDTO.CustomGameRequest customGameRequest) {
+    Lotto lotto = customGameRequest.toEntity();
+    Integer lottoId = Math.toIntExact(lottoRepository.save(lotto).getId());
+    return new LottoDTO.CustomGameResponse(lottoId);
   }
 
   public LottoDTO.RandomGameResponse createRandomGame() {

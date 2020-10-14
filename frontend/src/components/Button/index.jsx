@@ -1,11 +1,10 @@
 /**@jsx jsx */
 import {jsx, css} from '@emotion/core';
 
-const setStyle = (color, size, shape) => {
+const setStyle = ({color, size, shape}) => {
 	let height = '';
 	let width = '';
 	let radius = '';
-
 	let background = '';
 
 	switch (size) {
@@ -50,6 +49,9 @@ const setStyle = (color, size, shape) => {
 		case 'secondary':
 			background = '#f44336';
 			break;
+		case 'tertiary':
+			background = '#d3d3d3';
+			break;
 		default:
 			break;
 	}
@@ -85,10 +87,27 @@ const Button = ({
 	children,
 	onClick,
 	type = 'button',
+	disabled = false,
 }) => {
+	if (disabled)
+		return (
+			<button
+				css={setStyle({
+					color: 'tertiary',
+					size,
+					shape,
+					cursor: 'not-allowed',
+				})}
+				type={type}
+				disabled={true}
+			>
+				{children}
+			</button>
+		);
+
 	return (
 		<button
-			css={setStyle(color, size, shape)}
+			css={setStyle({color, size, shape})}
 			onClick={onClick}
 			type={type}
 		>
