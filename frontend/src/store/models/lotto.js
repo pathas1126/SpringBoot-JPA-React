@@ -57,7 +57,7 @@ const lotto = {
 				const {message} = response;
 				dispatch.lotto.setLastWinningGameAsyncError(message);
 				return console.warn(
-					']===LastWinningGame Data Fetching Error===[',
+					']===LottoTargetGame Data Fetching Error===[',
 				);
 			}
 		},

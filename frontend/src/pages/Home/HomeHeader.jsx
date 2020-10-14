@@ -1,9 +1,11 @@
 /**@jsx jsx */
 import {css, jsx} from '@emotion/core';
-import {CustomTargetGameInput, LastWinningGame} from '../../components/Lotto';
+import {CustomTargetGameInput, LottoTarget} from '../../components/Lotto';
 import Timer from '../../components/Timer';
 import Button from '../../components/Button';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import Loader from '../../components/Loader';
 
 const header = css`
 	width: 24rem;
@@ -41,17 +43,43 @@ const timerWrapper = css`
 `;
 
 const HomeHeader = () => {
-	const [viewCustomInput, setViewCustomInput] = useState(true);
+	const [viewCustomInput, setViewCustomInput] = useState(false);
+	const {currentTargetGame} = useSelector((state) => state.userLotto);
+	const {lastWinningGame} = useSelector((state) => state.lotto);
+
+	const fetchingLastWinningGame = useSelector(
+		(state) => state.loading.effects.lotto.setLastWinningGameAsync,
+	);
+	const fetchingCustomTargetGame = useSelector(
+		(state) => state.loading.effects.userLotto.setCurrentTargetGameAsync,
+	);
+
+	const dispatch = useDispatch();
+
 	const onClickAddCustomGame = () => {
 		setViewCustomInput(!viewCustomInput);
 	};
+
+	useEffect(() => {
+		dispatch.lotto.setLastWinningGameAsync();
+	}, [dispatch.lotto]);
+
 	return (
 		<header css={header}>
 			<article css={LastWinningGameWrapper}>
-				<LastWinningGame />
+				{currentTargetGame.length === 0 &&
+					lastWinningGame.length > 0 && (
+						<LottoTarget
+							target={lastWinningGame}
+							title='Last Winner'
+						/>
+					)}
+				{currentTargetGame.length > 0 && (
+					<LottoTarget target={currentTargetGame} title='Target' />
+				)}
 				{viewCustomInput && <CustomTargetGameInput />}
 				<Button size='full' onClick={onClickAddCustomGame}>
-					Add Custom Game
+					{viewCustomInput ? 'Close' : 'Make Custom Target'}
 				</Button>
 			</article>
 			<article css={title}>
@@ -60,6 +88,9 @@ const HomeHeader = () => {
 			<article css={timerWrapper}>
 				<Timer />
 			</article>
+			{(fetchingCustomTargetGame || fetchingLastWinningGame) && (
+				<Loader />
+			)}
 		</header>
 	);
 };
