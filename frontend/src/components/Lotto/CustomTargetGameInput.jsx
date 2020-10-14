@@ -5,8 +5,7 @@ import {useForm} from 'react-hook-form';
 import {plus} from './LottoGame';
 import Button from '../Button';
 import {AiOutlineEnter} from 'react-icons/all';
-import {methodEnum} from '../../lib/apiConstant';
-import {request} from '../../lib/request';
+import {useDispatch} from 'react-redux';
 
 const customTargetGameInputStyle = css`
 	width: 95%;
@@ -67,20 +66,19 @@ const CustomTargetGameInput = () => {
 		setError,
 	} = useForm();
 
+	const dispatch = useDispatch();
+
 	const onSubmit = async (data) => {
 		const numbers = Object.values(data).map((numberString) =>
 			Number(numberString),
 		);
-		const result = await request({
-			url: '/lotto/game/custom',
-			method: methodEnum.POST.value,
-			data: {customGame: numbers},
-		});
 
-		console.log(result);
-
-		if (!errors.number) reset();
+		if (!errors.number) {
+			reset();
+			return dispatch.userLotto.setCurrentTargetGameAsync(numbers);
+		}
 	};
+
 	const onChange = (event) => {
 		const {value, name} = event.target;
 		const regexPattern = /[^0-9]/g;
@@ -102,9 +100,11 @@ const CustomTargetGameInput = () => {
 		// 중복값이 있는 경우 에러 설정
 		const currentNumbers = Object.values(getValues());
 		const isOverlapped =
-			currentNumbers.filter((currentNumber) => {
-				if (currentNumber) return currentNumber === stringByNumber;
-			}).length > 1;
+			currentNumbers.filter(
+				(currentNumber) =>
+					currentNumber && currentNumber === stringByNumber,
+			).length > 1;
+
 		if (isOverlapped)
 			return setError('number', {
 				message: 'Verify whether your number is Unique',

@@ -1,13 +1,13 @@
 import {request} from '../../lib/request';
 import {
 	methodEnum,
-	RANDOM_GAMES_URL,
 	RANDOM_GAME_URL,
+	RANDOM_GAMES_URL,
 	statusEnum,
 	WINNING_GAME_URL,
 } from '../../lib/apiConstant';
 
-export const lotto = {
+const lotto = {
 	state: {
 		lastWinningGame: [],
 		lottoGames: [],
@@ -97,3 +97,5 @@ export const lotto = {
 		},
 	}),
 };
+
+export default lotto;

@@ -1,6 +1,7 @@
 package com.practice.demo.lotto.domain.dto;
 
 import com.practice.demo.lotto.domain.Lotto;
+import com.practice.demo.lotto.utils.LottoGame;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,7 +44,7 @@ public class LottoDTO {
   @Getter
   @RequiredArgsConstructor
   public static class CustomGameResponse {
-    private final Integer lottoId;
+    private final ArrayList<Integer> customGame;
   }
 
   public static String convertArrayToString(List<Integer> list) {

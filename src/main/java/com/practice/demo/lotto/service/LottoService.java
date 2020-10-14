@@ -38,8 +38,9 @@ public class LottoService {
 
   public LottoDTO.CustomGameResponse saveCustomGame(LottoDTO.CustomGameRequest customGameRequest) {
     Lotto lotto = customGameRequest.toEntity();
-    Integer lottoId = Math.toIntExact(lottoRepository.save(lotto).getId());
-    return new LottoDTO.CustomGameResponse(lottoId);
+    String lottoStringNumbers = lottoRepository.save(lotto).getNumbers();
+    LottoGame lottoGame = new LottoGame(lottoStringNumbers);
+    return new LottoDTO.CustomGameResponse(lottoGame.getGame());
   }
 
   public LottoDTO.RandomGameResponse createRandomGame() {
