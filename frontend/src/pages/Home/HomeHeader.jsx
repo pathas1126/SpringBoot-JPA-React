@@ -1,6 +1,6 @@
 /**@jsx jsx */
 import {css, jsx} from '@emotion/core';
-import {CustomTargetGameInput, LottoTarget} from '../../components/Lotto';
+import {CurrentTargetGameInput, LottoTarget} from '../../components/Lotto';
 import Timer from '../../components/Timer';
 import Button from '../../components/Button';
 import {useEffect, useState} from 'react';
@@ -77,7 +77,7 @@ const HomeHeader = () => {
 				{currentTargetGame.length > 0 && (
 					<LottoTarget target={currentTargetGame} title='Target' />
 				)}
-				{viewCustomInput && <CustomTargetGameInput />}
+				{viewCustomInput && <CurrentTargetGameInput />}
 				<Button size='full' onClick={onClickAddCustomGame}>
 					{viewCustomInput ? 'Close' : 'Make Custom Target'}
 				</Button>

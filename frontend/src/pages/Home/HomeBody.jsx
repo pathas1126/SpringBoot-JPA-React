@@ -1,8 +1,9 @@
 /**@jsx jsx */
 import {css, jsx} from '@emotion/core';
-import {LottoRandomGames} from '../../components/Lotto';
+import {LottoRandomGames, LottoCustomGames} from '../../components/Lotto';
 
 const homeBody = css`
+	width: 50%;
 	margin-top: 0;
 	display: flex;
 	align-items: center;
@@ -13,6 +14,7 @@ const HomeBody = () => {
 	return (
 		<div css={homeBody}>
 			<LottoRandomGames />
+			<LottoCustomGames />
 		</div>
 	);
 };

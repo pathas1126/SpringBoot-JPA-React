@@ -9,17 +9,15 @@ import Loader from '../../components/Loader';
 import {useCallback, useState} from 'react';
 import LottoMatcher from './LottoMatcher';
 
-const homeBody = css`
+const randomGameWrapper = css`
 	margin-top: 3rem;
 `;
 
 const lineWrapper = css`
+	margin-top: 0.725rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	& + & {
-		margin-top: 10px;
-	}
 `;
 
 const lottoMatcherWrapper = css`
@@ -42,7 +40,6 @@ const iconStyle = css`
 `;
 
 const buttonWrapper = css`
-	margin-bottom: 1.5rem;
 	width: 100%;
 	min-width: 10rem;
 `;
@@ -74,7 +71,7 @@ const LottoRandomGames = () => {
 	}, [isClicked, dispatch.lotto]);
 
 	return (
-		<div css={homeBody}>
+		<div css={randomGameWrapper}>
 			<article css={buttonWrapper}>
 				<Button size='full' onClick={createSetOnClick}>
 					{!isClicked && <span>Pick One Set</span>}
@@ -84,7 +81,7 @@ const LottoRandomGames = () => {
 			{lottoGames.length > 0 &&
 				lottoGames.map((game, index) => (
 					<div key={index} css={lineWrapper}>
-						{currentTargetGame && (
+						{currentTargetGame.length > 0 && (
 							<div css={lottoMatcherWrapper}>
 								<LottoMatcher game={game} />
 							</div>

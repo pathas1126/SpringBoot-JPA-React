@@ -54,7 +54,7 @@ const customTargetNumberNames = [
 	'bonus',
 ];
 
-const CustomTargetGameInput = () => {
+const CurrentTargetGameInput = () => {
 	const {
 		handleSubmit,
 		register,
@@ -68,7 +68,7 @@ const CustomTargetGameInput = () => {
 
 	const dispatch = useDispatch();
 
-	const onSubmit = async (data) => {
+	const onSubmit = (data) => {
 		const numbers = Object.values(data).map((numberString) =>
 			Number(numberString),
 		);
@@ -157,4 +157,4 @@ const CustomTargetGameInput = () => {
 	);
 };
 
-export default CustomTargetGameInput;
+export default CurrentTargetGameInput;
